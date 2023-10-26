@@ -1,7 +1,8 @@
 
 module PMParameterizedSensitivity
+    using Reexport
     using PMParameterizedBase
-    using SciMLSensitivity
+    @reexport using SciMLSensitivity
     import SciMLSensitivity: solve
     import PMParameterizedSolve: regenerateODEProblem!
     PMModel = PMParameterizedBase.PMModel
