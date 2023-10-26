@@ -1,7 +1,7 @@
 name = "PMParameterizedSensitivity"
 uuid = "a582606a-6a0f-441d-bade-777196214a17"
 authors = ["Tim Knab"]
-version = "0.1.2"
+version = "0.1.3"
 
 [deps]
 DifferentialEquations = "0c46a032-eb83-5123-abaf-570d42b7fbaa"
