@@ -1,10 +1,12 @@
 
 module PMParameterizedSensitivity
-using PMParameterizedBase
-PMModel = PMParameterizedBase.PMModel
-ModelValues = PMParameterizedBase.ModelValues
-
-include("modelingTools.jl")
-export ODEForwardSensitivityProblem
-
+    using PMParameterizedBase
+    using SciMLSensitivity
+    import SciMLSensitivity: solve
+    import PMParameterizedSolve: regenerateODEProblem!
+    PMModel = PMParameterizedBase.PMModel
+    ModelValues = PMParameterizedBase.ModelValues
+    include("modelingTools.jl")
+    export ODEForwardSensitivityProblem
+    export solve
 end
