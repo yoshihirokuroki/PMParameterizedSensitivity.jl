@@ -1,6 +1,6 @@
 using DifferentialEquations
 using SciMLSensitivity
-function ODEForwardSensitivityProblem(mdl::PMModel, u0::ModelValues, tspan, p::ModelValues, sensealg::SciMLSensitivity.AbstractForwardSensitivityAlgorithm = ForwardSensitivity();
+function SciMLSensitivity.ODEForwardSensitivityProblem(mdl::PMModel, sensealg::SciMLSensitivity.AbstractForwardSensitivityAlgorithm = ForwardSensitivity();
     kwargs... )
     PMParameterizedBase.regenerateODEProblem!(mdl)
     f = mdl._odeproblem.f
