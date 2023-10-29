@@ -4,7 +4,6 @@ module PMParameterizedSensitivity
     using PMParameterizedBase
     @reexport using SciMLSensitivity
     import SciMLSensitivity: solve
-    import PMParameterizedSolve: regenerateODEProblem!
     PMModel = PMParameterizedBase.PMModel
     ModelValues = PMParameterizedBase.ModelValues
     include("modelingTools.jl")
