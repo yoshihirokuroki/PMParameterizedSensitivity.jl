@@ -12,8 +12,6 @@ module PMParameterizedSensitivity
         mdl::PMModel
         prob::SciMLSensitivity.DEProblem
     end
-
-
     include("modelingTools.jl")
     export ODEForwardSensitivityProblem
     export solve
