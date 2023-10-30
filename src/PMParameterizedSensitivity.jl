@@ -3,14 +3,17 @@ module PMParameterizedSensitivity
     using Reexport
     using PMParameterizedBase
     import PMSimulatorBase.PMEvent
+    import PMSimulatorBase.collect_evs
     using PMParameterizedSolve
+    import DiffEqCallbacks: CallbackSet
     @reexport using SciMLSensitivity
     PMModel = PMParameterizedBase.PMModel
     ModelValues = PMParameterizedBase.ModelValues
 
+
     struct PMProbSens
-        mdl::PMModel
         prob::SciMLSensitivity.DEProblem
+        cbs::Union{CallbackSet, Nothing}
     end
     include("modelingTools.jl")
     export ODEForwardSensitivityProblem

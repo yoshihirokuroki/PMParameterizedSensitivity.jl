@@ -4,6 +4,7 @@ authors = ["Tim Knab"]
 version = "0.2.1"
 
 [deps]
+DiffEqCallbacks = "459566f4-90b8-5000-8ac3-15dfb0a30def"
 DifferentialEquations = "0c46a032-eb83-5123-abaf-570d42b7fbaa"
 PMParameterizedBase = "99b5832f-53bf-45ba-a9c8-837ddefabddf"
 PMParameterizedSolve = "c61c237a-0ee8-4089-aed3-ebe590de2f80"
