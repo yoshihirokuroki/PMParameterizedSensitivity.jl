@@ -18,33 +18,27 @@ function SciMLSensitivity.ODEForwardSensitivityProblem(mdl::PMModel, sensealg::S
     u0in = ModelingToolkit.varmap_to_vars(vcat(varpairs, parpairs, conpairs), vcat(vars, pars, cons))[1:lastindex(vars)]
 
     tspan = mdl.tspan
-    sens_prob = SciMLSensitivity.ODEForwardSensitivityProblem(f, u0in, tspan, pin, sensealg; kwargs...)
+    sprob = SciMLSensitivity.ODEForwardSensitivityProblem(f, u0in, tspan, pin, sensealg; kwargs...)
+    sens_prob = PMProbSens(deepcopy(mdl),sprob)
     return sens_prob
 end
 
-
-
-# function SciMLSensitivity.ODEForwardSensitivityProblem(mdl_in::PMModel, evs::Vector{PMEvent}, sensealg::SciMLSensitivity.AbstractForwardSensitivityAlgorithm = ForwardSensitivity();
-#     kwargs... )
-#     mdl = deepcopy(mdl_in)
-#     cbs = collect_evs(evs, mdl)
-#     parpairs = mdl.parameters.values
-#     conpairs = mdl.constants.values
-#     varpairs = mdl.states.values
-#     inpairs = mdl._inputs.values
-
-#     pars = [p.first for p in parpairs]
-#     cons = [c.first for c in conpairs]
-#     vars = [v.first for v in varpairs]
-#     ins = [i.first for i in inpairs]
-
-#     pin = ModelingToolkit.varmap_to_vars(vcat(parpairs,inpairs, conpairs), vcat(pars, ins, cons))[1:(lastindex(pars)+lastindex(ins))]
-#     u0in = ModelingToolkit.varmap_to_vars(vcat(varpairs, parpairs, conpairs), vcat(vars, pars, cons))[1:lastindex(vars)]
-
-#     tspan = mdl.tspan
-
-#     sens_prob = SciMLSensitivity.ODEForwardSensitivityProblem(mdl._odeproblem.f, u0in, tspan, pin, sensealg; callback = cbs, kwargs...)
-
-#     return (sens_prob,cbs)
-# end
-
+function PMParameterizedSolve.solve(sprob::PMProbSens, evs::Vector{PMEvent}, alg::Union{DEAlgorithm,Nothing} = nothing; kwargs...)
+    IDs = [ev.ID for ev in evs]
+    if length(unique(IDs))>1
+        error("Please combine matchign IDs into PMinstance and PMEvents")
+    end
+    mdl = sprob.mdl
+    # Save parameters and inputs prior to solution. This will let us restore them after. # This could (PROBABLY WILL) have implications/cause problems for parallel solution...
+    initP = mdl.parameters.values
+    initU = mdl.states.values
+    initIn = mdl.inputs.values
+    cbs = collect_evs(evs, mdl)
+    sol = solve(sprob.prob, alg; callback = cbs, kwargs...)
+    # Restore values.
+    mdl.parameters.values[:] = initP
+    mdl.states.values[:] = initU
+    mdl.states.parameters[:] = initP
+    mdl.inputs.values[:] = initIn
+    return sol
+end
