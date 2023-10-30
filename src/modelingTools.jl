@@ -24,9 +24,6 @@ end
 
 
 
-function SciMLSensitivity.solve
-
-
 # function SciMLSensitivity.ODEForwardSensitivityProblem(mdl_in::PMModel, evs::Vector{PMEvent}, sensealg::SciMLSensitivity.AbstractForwardSensitivityAlgorithm = ForwardSensitivity();
 #     kwargs... )
 #     mdl = deepcopy(mdl_in)
