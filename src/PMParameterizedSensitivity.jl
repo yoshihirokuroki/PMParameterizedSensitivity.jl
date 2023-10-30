@@ -2,6 +2,7 @@
 module PMParameterizedSensitivity
     using Reexport
     using PMParameterizedBase
+    import PMSimulatorBase.PMEvent
     @reexport using SciMLSensitivity
     PMModel = PMParameterizedBase.PMModel
     ModelValues = PMParameterizedBase.ModelValues
