@@ -1,7 +1,7 @@
 name = "PMParameterizedSensitivity"
 uuid = "a582606a-6a0f-441d-bade-777196214a17"
 authors = ["Tim Knab"]
-version = "0.2.1"
+version = "0.2.2"
 
 [deps]
 DiffEqCallbacks = "459566f4-90b8-5000-8ac3-15dfb0a30def"
