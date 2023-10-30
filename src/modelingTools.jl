@@ -23,7 +23,7 @@ function SciMLSensitivity.ODEForwardSensitivityProblem(mdl::PMModel, sensealg::S
     return sens_prob
 end
 
-function PMParameterized.solve(sprob::PMProbSens, evs::Vector{PMEvent}, alg::Union{PMParameterizedSolve.DifferentialEquations.DEAlgorithm,Nothing} = nothing; kwargs...)
+function PMParameterizedSolve.solve(sprob::PMProbSens, evs::Vector{PMEvent}, alg::Union{PMParameterizedSolve.DifferentialEquations.DEAlgorithm,Nothing} = nothing; kwargs...)
     mdl = sprob.mdl
     # Save parameters and inputs prior to solution. This will let us restore them after. # This could (PROBABLY WILL) have implications/cause problems for parallel solution...
     initP = mdl.parameters.values
