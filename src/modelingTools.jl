@@ -23,7 +23,7 @@ function SciMLSensitivity.ODEForwardSensitivityProblem(mdl::PMModel, sensealg::S
     return sens_prob
 end
 
-function PMParameterizedSolve.solve(sprob::PMProbSens, evs::Vector{PMEvent}, alg::Union{DEAlgorithm,Nothing} = nothing; kwargs...)
+function solve(sprob::PMProbSens, evs::Vector{PMEvent}, alg::Union{PMParameterizedSolve.DifferentialEquations.DEAlgorithm,Nothing} = nothing; kwargs...)
     IDs = [ev.ID for ev in evs]
     if length(unique(IDs))>1
         error("Please combine matchign IDs into PMinstance and PMEvents")
@@ -33,7 +33,7 @@ function PMParameterizedSolve.solve(sprob::PMProbSens, evs::Vector{PMEvent}, alg
     initP = mdl.parameters.values
     initU = mdl.states.values
     initIn = mdl.inputs.values
-    cbs = collect_evs(evs, mdl)
+    cbs = PMParameterizedBase.collect_evs(evs, mdl)
     sol = solve(sprob.prob, alg; callback = cbs, kwargs...)
     # Restore values.
     mdl.parameters.values[:] = initP
