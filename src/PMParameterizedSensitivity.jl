@@ -3,7 +3,7 @@ module PMParameterizedSensitivity
     using Reexport
     using PMParameterizedBase
     import PMSimulatorBase: PMEvent
-    import PMSimulatorSimulate: collect_evs
+    import PMSimulatorBase: collect_evs
     @reexport using SciMLSensitivity
     import SciMLSensitivity: solve
     PMModel = PMParameterizedBase.PMModel
