@@ -6,7 +6,7 @@ module PMParameterizedSensitivity
     import PMSimulatorBase.collect_evs
     using PMParameterizedSolve
     import DiffEqCallbacks: CallbackSet
-    @reexport using SciMLSensitivity
+    using SciMLSensitivity
     PMModel = PMParameterizedBase.PMModel
     ModelValues = PMParameterizedBase.ModelValues
 
